@@ -22,6 +22,7 @@ export function* signIn({ payload }) {
 
     yield put(signInSuccess(token, user));
   } catch (error) {
+    console.tron.log(error);
     Alert.alert('Login error', 'Authentication failed, check your data.');
     yield put(signFailure());
   }

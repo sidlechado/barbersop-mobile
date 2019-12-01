@@ -55,7 +55,7 @@ export default (isSigned = false) =>
               keyboardHidesTabBar: true,
               activeTintColor: '#fff',
               inactiveTintColor: 'rgba(255, 255, 255, 0.6)',
-              style: { backgroundColor: '#8d41a8' },
+              style: { backgroundColor: '#8c1007' },
             },
           }
         ),
