@@ -1,8 +1,8 @@
 platform :ios, '9.0'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-target 'module06' do
-  # Pods for module06
+target 'barberShop' do
+  # Pods for barberShop
   pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
   pod 'FBReactNativeSpec', :path => "../node_modules/react-native/Libraries/FBReactNativeSpec"
   pod 'RCTRequired', :path => "../node_modules/react-native/Libraries/RCTRequired"
@@ -37,7 +37,7 @@ target 'module06' do
 
   pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
 
-  target 'module06Tests' do
+  target 'barberShopTests' do
     inherit! :search_paths
     # Pods for testing
   end
@@ -45,10 +45,10 @@ target 'module06' do
   use_native_modules!
 end
 
-target 'module06-tvOS' do
-  # Pods for module06-tvOS
+target 'barberShop-tvOS' do
+  # Pods for barberShop-tvOS
 
-  target 'module06-tvOSTests' do
+  target 'barberShop-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end

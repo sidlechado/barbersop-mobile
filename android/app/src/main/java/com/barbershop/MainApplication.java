@@ -1,4 +1,4 @@
-package com.module06;
+package com.barbershop;
 
 import android.app.Application;
 import android.content.Context;

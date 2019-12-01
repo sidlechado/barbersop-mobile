@@ -23,7 +23,7 @@ export default function SignIn() {
         <Form>
           <FormInput
             icon="mail-outline"
-            keyboardType="email-adress"
+            keyboardType="email-address"
             autoCorrect={false}
             autoCapitalize="none"
             placeholder="Digite seu e-mail"
