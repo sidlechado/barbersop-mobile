@@ -8,7 +8,7 @@ if (__DEV__) {
     .configure()
     .use(reactotronRedux())
     .use(sagaPlugin())
-    .connect({ host: '192.168.11.191' });
+    .connect({ host: '127.0.1.1' });
 
   tron.clear();
 

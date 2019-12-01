@@ -31,6 +31,7 @@ module.exports = {
     'react/static-property-placement': 'off',
     'react/jsx-props-no-spreading': 'off',
     'no-console': 'off',
+    'no-param-reassign': 'off',
   },
   settings: {
     'import/resolver': {

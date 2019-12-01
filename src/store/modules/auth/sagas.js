@@ -1,37 +1,28 @@
-import { all, takeLatest, call, put } from 'redux-saga/effects';
+import { call, put, all, takeLatest } from 'redux-saga/effects';
 import { Alert } from 'react-native';
 
 import api from '~/services/api';
+
 import { signInSuccess, signFailure } from './actions';
 
 export function* signIn({ payload }) {
-  try {
-    const { email, password } = payload;
+  const { email, password } = payload;
 
-    const response = yield call(api.post, 'sessions', {
-      email,
-      password,
-    });
+  try {
+    const response = yield call(api.post, 'sessions', { email, password });
 
     const { token, user } = response.data;
 
     if (user.provider) {
-      Alert.alert(
-        'Erro no login',
-        'O usuário não pode ser prestador de serviços.'
-      );
-      yield put(signFailure());
+      Alert.alert('Login error', 'User cannot be a provider.');
       return;
     }
 
     api.defaults.headers.Authorization = `Bearer ${token}`;
 
     yield put(signInSuccess(token, user));
-  } catch (e) {
-    Alert.alert(
-      'Falha na autenticação',
-      'Houve um erro no login, verifique seus dados.'
-    );
+  } catch (error) {
+    Alert.alert('Login error', 'Authentication failed, check your data.');
     yield put(signFailure());
   }
 }
@@ -41,16 +32,19 @@ export function* signUp({ payload }) {
     const { name, email, password } = payload;
 
     yield call(api.post, 'users', { name, email, password });
-  } catch (e) {
+
     Alert.alert(
-      'Falha no cadastro',
-      'Houve um erro no cadastro, verifique seus dados.'
+      'Registration successful',
+      'Your account has been successfully registered, please login.'
     );
+  } catch (error) {
+    Alert.alert('Sign up error', 'Registration failed, check your data.');
+
     yield put(signFailure());
   }
 }
 
-export const setToken = ({ payload }) => {
+export function setToken({ payload }) {
   if (!payload) return;
 
   const { token } = payload.auth;
@@ -58,7 +52,7 @@ export const setToken = ({ payload }) => {
   if (token) {
     api.defaults.headers.Authorization = `Bearer ${token}`;
   }
-};
+}
 
 export default all([
   takeLatest('persist/REHYDRATE', setToken),
