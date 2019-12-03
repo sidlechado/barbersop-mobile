@@ -1,10 +1,11 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { Container, Left, Avatar, Info, Name, Time } from './styles';
 
-export default function Product({ data }) {
+export default function Product({ data, onCancel }) {
   return (
     <Container past={data.past}>
       <Left>
@@ -19,6 +20,9 @@ export default function Product({ data }) {
           <Time>{data.price}</Time>
         </Info>
       </Left>
+      <TouchableOpacity onPress={onCancel}>
+        <Icon name="event-busy" size={20} color="#f64c75" />
+      </TouchableOpacity>
     </Container>
   );
 }

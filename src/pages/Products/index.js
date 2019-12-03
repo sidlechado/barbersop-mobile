@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Alert } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { withNavigationFocus } from 'react-navigation';
@@ -27,10 +28,30 @@ function Products({ isFocused, navigation }) {
   }, [isFocused]);
 
   async function handleDeleteProducts(id) {
-    await api.delete(`products/${id}`);
+    Alert.alert(
+      'Careful',
+      'Do you want to cancel your product?',
+      [
+        {
+          text: 'No',
+          style: 'cancel',
+        },
+        {
+          text: 'Yes',
+          onPress: async () => {
+            await api.delete(`products/${id}`);
 
-    setProducts(
-      products.map(product => (product.id === id ? { ...product } : product))
+            setProducts(
+              products.map(product =>
+                product.id === id ? { ...product } : product
+              )
+            );
+
+            loadProducts();
+          },
+        },
+      ],
+      { cancelable: false }
     );
   }
 

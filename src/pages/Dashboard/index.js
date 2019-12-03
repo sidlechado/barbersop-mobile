@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { withNavigationFocus } from 'react-navigation';
 import PropTypes from 'prop-types';
@@ -26,14 +27,30 @@ function Dashboard({ isFocused }) {
   }, [isFocused]);
 
   async function handleCancelAppointment(id) {
-    const response = await api.delete(`appointments/${id}`);
+    Alert.alert(
+      'Careful',
+      'Do you want to cancel your appointment?',
+      [
+        {
+          text: 'No',
+          style: 'cancel',
+        },
+        {
+          text: 'Yes',
+          onPress: async () => {
+            const response = await api.delete(`appointments/${id}`);
 
-    setAppointments(
-      appointments.map(appointment =>
-        appointment.id === id
-          ? { ...appointment, canceled_at: response.data.canceled_at }
-          : appointment
-      )
+            setAppointments(
+              appointments.map(appointment =>
+                appointment.id === id
+                  ? { ...appointment, canceled_at: response.data.canceled_at }
+                  : appointment
+              )
+            );
+          },
+        },
+      ],
+      { cancelable: false }
     );
   }
 
