@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { withNavigationFocus } from 'react-navigation';
 import PropTypes from 'prop-types';
@@ -6,28 +7,78 @@ import PropTypes from 'prop-types';
 import api from '~/services/api';
 
 import Background from '~/components/Background';
+import Appointment from '~/components/Product';
 
-import { Container, Title, List } from './styles';
+import { Container, List, CreateButton, Form } from './styles';
 
-function Products({ isFocused }) {
+function Products({ isFocused, navigation }) {
+  const [products, setProducts] = useState([]);
+
+  async function loadProducts() {
+    const response = await api.get('ownproducts');
+
+    setProducts(response.data);
+  }
+
+  useEffect(() => {
+    if (isFocused) {
+      loadProducts();
+    }
+  }, [isFocused]);
+
+  async function handleDeleteProducts(id) {
+    await api.delete(`products/${id}`);
+
+    setProducts(
+      products.map(product => (product.id === id ? { ...product } : product))
+    );
+  }
+
   return (
     <Background>
       <Container>
-        <Title>Products</Title>
+        <Form>
+          <CreateButton onPress={() => navigation.navigate('NewProduct')}>
+            New product
+          </CreateButton>
+        </Form>
+
+        <List
+          data={products}
+          keyExtractor={item => String(item.id)}
+          renderItem={({ item }) => (
+            <Appointment
+              data={item}
+              onCancel={() => handleDeleteProducts(item.id)}
+            />
+          )}
+        />
       </Container>
     </Background>
   );
 }
 
-Products.navigationOptions = {
-  tabBarLabel: 'Products',
-  tabBarIcon: ({ tintColor }) => (
-    <Icon name="work" size={20} color={tintColor} />
+Products.navigationOptions = ({ navigation }) => ({
+  title: 'Products',
+  headerLeft: () => (
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate('Dashboard');
+      }}
+    >
+      <Icon name="chevron-left" size={20} color="#fff" />
+    </TouchableOpacity>
   ),
-};
+  tabBarIcon: ({ tintColor }) => (
+    <Icon name="event" size={20} color={tintColor} />
+  ),
+});
 
 Products.propTypes = {
   isFocused: PropTypes.bool.isRequired,
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default withNavigationFocus(Products);

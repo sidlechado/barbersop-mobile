@@ -32,6 +32,7 @@ module.exports = {
     'react/jsx-props-no-spreading': 'off',
     'no-console': 'off',
     'no-param-reassign': 'off',
+    'react/jsx-boolean-value': 'off',
   },
   settings: {
     'import/resolver': {

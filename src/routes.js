@@ -9,8 +9,10 @@ import SignUp from './pages/SignUp';
 
 import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
-import Products from './pages/Products';
 import About from './pages/About';
+
+import Products from './pages/Products';
+import NewProduct from './pages/NewProduct';
 
 import SelectProvider from './pages/NewAppointment/SelectProvider';
 import SelectDateTime from './pages/NewAppointment/SelectDateTime';
@@ -50,7 +52,29 @@ export default (isSigned = false) =>
                 ),
               },
             },
-            Products,
+            Products: {
+              screen: createStackNavigator(
+                { Products, NewProduct },
+                {
+                  defaultNavigationOptions: {
+                    headerTransparent: true,
+                    headerTintColor: '#fff',
+                    headerLeftContainerStyle: { marginLeft: 20 },
+                  },
+                }
+              ),
+              navigationOptions: {
+                tabBarVisible: false,
+                tabBarLabel: 'Products',
+                tabBarIcon: (
+                  <Icon
+                    name="redeem"
+                    size={20}
+                    color="rgba(255, 255, 255, 0.6)"
+                  />
+                ),
+              },
+            },
             Profile,
             About,
           },
