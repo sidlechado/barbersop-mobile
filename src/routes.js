@@ -13,6 +13,7 @@ import About from './pages/About';
 
 import Products from './pages/Products';
 import NewProduct from './pages/NewProduct';
+import UpdateProduct from './pages/UpdateProduct';
 
 import SelectProvider from './pages/NewAppointment/SelectProvider';
 import SelectDateTime from './pages/NewAppointment/SelectDateTime';
@@ -54,7 +55,7 @@ export default (isSigned = false) =>
             },
             Products: {
               screen: createStackNavigator(
-                { Products, NewProduct },
+                { Products, NewProduct, UpdateProduct },
                 {
                   defaultNavigationOptions: {
                     headerTransparent: true,

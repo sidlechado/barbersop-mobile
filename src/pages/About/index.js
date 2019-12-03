@@ -3,18 +3,16 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import { withNavigationFocus } from 'react-navigation';
 
 import Background from '~/components/Background';
+import RetractInput from '~/components/RetractInput';
 
-import { Container, Title, ContainerAbout } from './styles';
+import { Container, Title } from './styles';
 
 function About() {
   return (
     <Background>
       <Container>
         <Title>About</Title>
-
-        <ContainerAbout>
-          <Icon name="info" size={80} />
-        </ContainerAbout>
+        <RetractInput label="teste" content="teste2" />
       </Container>
     </Background>
   );

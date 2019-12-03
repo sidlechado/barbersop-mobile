@@ -5,6 +5,10 @@ export const Container = styled.SafeAreaView`
   flex: 1;
 `;
 
+export const Update = styled(Button)`
+  margin-bottom: 10px;
+`;
+
 export const Form = styled.ScrollView.attrs({
   contentContainerStyle: { padding: 30 },
   showsVerticalScrollIndicator: false,

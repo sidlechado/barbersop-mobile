@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Alert } from 'react-native';
+import { Alert, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { withNavigationFocus } from 'react-navigation';
@@ -8,9 +8,9 @@ import PropTypes from 'prop-types';
 import api from '~/services/api';
 
 import Background from '~/components/Background';
-import Appointment from '~/components/Product';
+import Product from '~/components/Product';
 
-import { Container, List, CreateButton, Form } from './styles';
+import { Container, List, CreateButton, Form, Update } from './styles';
 
 function Products({ isFocused, navigation }) {
   const [products, setProducts] = useState([]);
@@ -30,7 +30,7 @@ function Products({ isFocused, navigation }) {
   async function handleDeleteProducts(id) {
     Alert.alert(
       'Careful',
-      'Do you want to cancel your product?',
+      'Do you want to delete your product?',
       [
         {
           text: 'No',
@@ -68,10 +68,17 @@ function Products({ isFocused, navigation }) {
           data={products}
           keyExtractor={item => String(item.id)}
           renderItem={({ item }) => (
-            <Appointment
-              data={item}
-              onCancel={() => handleDeleteProducts(item.id)}
-            />
+            <>
+              <Product
+                data={item}
+                onCancel={() => handleDeleteProducts(item.id)}
+              />
+              <Update
+                onPress={() => navigation.navigate('UpdateProduct', { item })}
+              >
+                <Text>Update product above</Text>
+              </Update>
+            </>
           )}
         />
       </Container>
