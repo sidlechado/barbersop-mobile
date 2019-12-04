@@ -29,7 +29,7 @@ export const AboutTextH1 = styled.Text`
 `;
 
 export const AboutTextH2 = styled.Text`
-  max-height: 30px;
+  flex-grow: 1;
   align-self: auto;
   margin-top: 10px;
   font-size: 15px;
